@@ -1,25 +1,40 @@
 clear all
 close all
 
-I = im2double(imread('res/butterfly.jpg'));
-%I = im2double(imread('res/future.jpg'));
-%I = im2double(imread('res/mytest.png'));
+DOHALFSIZE=true;
+DEBUG=false;
+DRAW_SEPARATE=false;
+%FILENAME='res/butterfly.jpg';
+FILENAME='res/dalmatian.png';
+% FILENAME='res/mytest.png';
+
+% parameters
+sigma0 = 2;    % initial sigma
+k      = 1.25; % k - factor to increase sigma by each level
+levels = 10;   % number of levels to process
+thresh = 0.20; %0.15;    % threshold for local maxima % TODO
+
+% threshold dalmatian: 0.15 < t < 0.25
+
+% read image
+I = im2double(imread(FILENAME));
 
 % convert color images to grayscale
 if ndims(I) > 2
     I = rgb2gray(I);
 end
 
-%I = imresize(I,0.15);
+for halfsizeloop = 1:2
 
-DEBUG=false;
-DRAW_SEPARATE=true;
+% resize to half
+if halfsizeloop == 2
+    if DOHALFSIZE
+        I = imresize(I, 0.5);
+    else
+        break;
+    end
+end
 
-% parameters
-sigma0 = 2;    % initial sigma
-k      = 1.25; % k - factor to increase sigma by each level
-levels = 10;   % number of levels to process
-thresh = 0.15;    % threshold for local maxima % TODO
 
 % --- Create scale space matrix ------------------------------------------
 [height,width] = size(I);
@@ -31,12 +46,17 @@ for i = 1:levels
     hsize = 2 * floor(3 * sigma) + 1;
     log = sigma*sigma*fspecial('log', hsize, sigma);
 
-    % convolve with the image and store absolute values in the scalespace
-    scale_space(:,:,i) = abs(imfilter(I, log, 'replicate', 'same'));
+    % convolve with the image and store values in the scalespace
+    scale_space(:,:,i) = imfilter(I, log, 'replicate', 'same');
 
     % increase sigma
     sigma = sigma * k;
 end
+orig_scale_space = scale_space; % keep the original response for later
+
+% work with the absolute response values
+scale_space = abs(scale_space);
+
 if DEBUG, debug_montage('Scale space', scale_space), end;
 
 
@@ -83,13 +103,15 @@ scale_space(scale_space < thresh) = 0;
 if DEBUG, debug_montage('Final maxima', scale_space), end;
 
 
-cx = []; cy = []; rad = [];
+cx = []; cy = []; rad = []; lev = [];
 for i = 1:levels
     sigma = sigma0 * k^(i-1);
     radius = sqrt(2) * sigma;
-    [cy_,cx_] = find(scale_space(:,:,i))
+    [cy_,cx_] = find(scale_space(:,:,i));
     rad_ = zeros(size(cx_));
     rad_(:) = radius;
+    lev_ = zeros(size(cx_));
+    lev_(:) = i;
     if DRAW_SEPARATE
         if size(cx_) > 0
             figure('Name',sprintf('Level %d',i));
@@ -99,13 +121,56 @@ for i = 1:levels
         cx  = [cx;cx_];
         cy  = [cy;cy_];
         rad = [rad;rad_];
+        lev = [lev;lev_];
     end
 end
 if ~DRAW_SEPARATE
     figure
     show_all_circles(I,cx,cy,rad);
+    
+    
+    disp('Select blobs to analyze, double-click or press Enter to finish.');
+    [xs,ys] = getpts;
+
+    ixs = zeros(size(xs,1),1);
+    for i=1:size(xs)
+        % find the closest blob centers to the clicked coordinates
+        d = (cx - xs(i)).^2 + (cy - ys(i)).^2;
+        [~,ix] = min(d);
+        ixs(i) = ix;
+
+
+    end
+    
+    for i=1:size(ixs)
+        ix = ixs(i);
+        if halfsizeloop==1
+            shalf = '(Full)';
+        else
+            shalf = '(Half)';
+        end
+        info = sprintf('%s Blob %d: x=%d y=%d level %d (\\sigma=%f)', ...
+                shalf, i, cx(ix), cy(ix), lev(ix), sigma0 * k^(lev(ix)-1));
+        plot_log_response(info, cx(ix), cy(ix), orig_scale_space, sigma0, k);
+    end
 end
 
+end % halfsizeloop
+
+% plot the LoG response for given coordinates
+function plot_log_response(info,x,y,scalespc,sigma0,k)
+    disp(info);
+
+    levels = size(scalespc,3);
+    vals = reshape(scalespc(y,x,:), [levels 1])
+    sigs = (sigma0 * k.^((1:levels)-1))'
+    
+    figure('Name', 'LoG response');
+    plot(sigs,vals);
+    title(info);
+    xlabel('\sigma');
+    ylabel('LoG response');
+end
 
 % debug output
 function [] = debug_montage(label, space)
