@@ -4,8 +4,8 @@ close all
 DOHALFSIZE=true;
 DEBUG=false;
 DRAW_SEPARATE=false;
-%FILENAME='res/butterfly.jpg';
-FILENAME='res/dalmatian.png';
+FILENAME='res/butterfly.jpg';
+%FILENAME='res/dalmatian.png';
 % FILENAME='res/mytest.png';
 
 % parameters
@@ -14,7 +14,8 @@ k      = 1.25; % k - factor to increase sigma by each level
 levels = 10;   % number of levels to process
 thresh = 0.20; %0.15;    % threshold for local maxima % TODO
 
-% threshold dalmatian: 0.15 < t < 0.25
+% threshold butterfly: 0.15 < t < 0.25 -> 0.20 looks good
+% threshold dalmatian: 0.15 < t < 0.25 -> 0.20 looks good
 
 % read image
 I = im2double(imread(FILENAME));
@@ -149,6 +150,10 @@ if ~DRAW_SEPARATE
         else
             shalf = '(Half)';
         end
+        
+        % show separate image with selected blobs marked only
+        figure; show_all_circles(I,[cx(ix)],[cy(ix)],[rad(ix)]);
+        
         info = sprintf('%s Blob %d: x=%d y=%d level %d (\\sigma=%f)', ...
                 shalf, i, cx(ix), cy(ix), lev(ix), sigma0 * k^(lev(ix)-1));
         plot_log_response(info, cx(ix), cy(ix), orig_scale_space, sigma0, k);
