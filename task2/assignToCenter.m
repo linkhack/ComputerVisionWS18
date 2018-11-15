@@ -1,7 +1,7 @@
 function indicator = assignToCenter(data,centers)
 %ASSIGNTOCENTER Summary of this function goes here
-%   Detailed explanation goes here
-k = size(centers,1);
+%   Assigns datapoint to center with minimal distance
+k = size(centers,1); %nr of clusters = nr of centers
 basis = eye(k);
 for i=1:k
     distanceFromCenter = data-centers(i,:);
