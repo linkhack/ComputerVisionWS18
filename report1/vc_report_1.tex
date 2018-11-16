@@ -52,9 +52,9 @@
   \fontsize{12}{12pt}
   \begin{tabular}[t]{c c c}
   {\bf Alexander Cech}                    & {\bf Hamed Jafari-Sahamieh}             & {\bf Patrick Link}                      \\
-  \small{Student of Visual Computing}     & \small{Student of Computer Science(?)}  & \small{Student of Computer Science(?)}  \\
+  \small{Student of Visual Computing}     & \small{Student of Visual Computing}     & \small{Student of Computer Science(?)}  \\
   \small{Vienna University of Technology} & \small{Vienna University of Technology} & \small{Vienna University of Technology} \\
-  \small{e08900070@student.tuwien.ac.at}  & \small{?}                               & \small{e11728332@student.tuwien.ac.at}  \\
+  \small{e08900070@student.tuwien.ac.at}  & \small{e09826767@student.tuwien.ac.at}                               & \small{e11728332@student.tuwien.ac.at}  \\
   \end{tabular}
   ~\\ ~\\ ~\\
   \normalsize
@@ -195,7 +195,7 @@ This is a text to test the layout.  This is a text to test the layout.
 
 % -----------------------------------------------------------------------------------------------
 
-\section{Assignment 2: Image Segmentation by \texorpdfstring{$K$}-means Clustering}
+\section{Assignment 2: Image Segmentation by \texorpdfstring{$K-$means}\ \ Clustering}
 \label{sec:assignment2}
 
 This is a text to test the layout.
@@ -243,11 +243,20 @@ Todo ...
 Todo ...
 
 \begin{figure}[h]
+	\includegraphics[width=0.5\textwidth]{figures/a3_dalmation_k020_full.png}
+	\includegraphics[width=0.5\textwidth]{figures/a3_dalmation_k020_half.png}
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k020.png}
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k020_small.png}
+	\caption{LoG blob detector applied to two different images and to half-sized versions of them. Parameters: $\sigma_0=2, k=1.25, threshold=0.20, 10 levels$.}
+	\label{fig:a3:thresholds}
+\end{figure}
+
+\begin{figure}[h]
 	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k015.png}
 	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k018.png}
 	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k020.png}
 	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k025.png}
-	\caption{Illustration of the effect of different thresholds $k$. Top left: $k=0.15$. Top right: $k=0.18$. Bottom left: $k=0.20$. Bottom right: $k=0.25$.}
+	\caption{Illustration of the effect of different thresholds $t$. Top left: $t=0.15$. Top right: $t=0.18$. Bottom left: $t=0.20$. Bottom right: $t=0.25$.}
 	\label{fig:a3:thresholds}
 \end{figure}
 
