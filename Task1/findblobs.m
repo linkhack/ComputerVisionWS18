@@ -4,8 +4,8 @@ close all
 DOHALFSIZE=true;        % process half sized image in addition?
 DEBUG=false;
 DRAW_SEPARATE=false;    % draw circles for each scale in separate image?
-FILENAME='res/butterfly.jpg';
-%FILENAME='res/dalmatian.png';
+%FILENAME='res/butterfly.jpg';
+FILENAME='res/dalmatian.png';
 %FILENAME='res/mytest.png';
 
 % parameters
@@ -184,9 +184,9 @@ function plot_log_response(info,x,y,scalespc,sigma0,k)
     disp(info);
 
     levels = size(scalespc,3);
-    vals = reshape(scalespc(y,x,:), [levels 1])
+    vals = reshape(scalespc(y,x,:), [levels 1]);
     lvls = 1:levels; % 0:(levels-1);
-    sigs = (sigma0 * k.^((1:levels)-1))'
+    sigs = (sigma0 * k.^((1:levels)-1))';
     
     figure('Name', 'LoG response');
     plot(lvls,vals);
