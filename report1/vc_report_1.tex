@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage[section]{placeins} % to avoid figures floating out of the current section
 
 %set dimensions of columns, gap between columns, and paragraph indent
 
@@ -102,10 +103,13 @@ This is a text to test the layout.  This is a text to test the layout.
 This is a text to test the layout. This is a text to test the layout.
 
 \input {assignment_1}
+\FloatBarrier % keep figures above!
 
 \input {assignment_2}
+\FloatBarrier % keep figures above!
 
 \input {assignment_3}
+\FloatBarrier % keep figures above!
 
 
 %% *********

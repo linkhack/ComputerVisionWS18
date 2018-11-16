@@ -8,7 +8,7 @@ This assignment is about locating blobs of different sizes in images. A Laplacia
 Given an image, the problem is to find blob-like features of varying scale. In specific, the goals are to:
 \begin{itemize}[noitemsep]
 \item Implement a Laplacian of Gaussian (LoG) blob detector
-\item Apply it to a reference image (\texttt{butterfly.jpg}) and an image of choice. Also apply it to half-sized versions of the images
+\item Apply it to a reference image (\texttt{butterfly.jpg}) and an image of choice, and to also apply it to half-sized versions of the images
 \item Indicate the found blobs by overlaying circles, with the circle radii being representative of the found blob's size
 \item Plot the LoG response over all scales at a specific keypoint for both the original and half-sized image
 \item Discuss the results
@@ -16,7 +16,12 @@ Given an image, the problem is to find blob-like features of varying scale. In s
 
 \subsection{Methodology}
 
-Todo ...
+The detector parameters and image filename (\texttt{sigma0, k, level, thresh, FILENAME}) are defined in the first couple of lines of the implementation and can easily be changed there to experiment with different values.
+After loading the image, we create a scale space matrix of depth \texttt{level}, each level corresponding to a specific value of $\sigma$.
+The original image is convoluted with an LoG-filter of size proportional to increasing values of $\sigma$ ($= \sigma_0 k^{level-1}$), and the result is stored in the scale-space-matrix, so that each level represents the filter response to an increasingly blurred version of the image.
+In order to detect blobs independently of the intensity relative to their background, we store the absolute value of the filter response.
+
+Non-maxima-suppression is then performed on the scale-space-matrix, leaving only those elements non-zero, which are larger than all of their 26 immediate neighbours in the three-dimensional matrix. Each of these remaining points corresponds to the center of a detected blob (dimension 1 and 2 of the matrix), and the blob's size (dimension 3: $\sigma$).
 
 \subsection{Experiments}
 
@@ -37,10 +42,10 @@ Todo ...
 \begin{figure}[h]
 	\centering
 	\begin{tabular}{cc}
-	\includegraphics[width=0.4\textwidth]{figures/a3_butterfly_k015.png} &
-	\includegraphics[width=0.4\textwidth]{figures/a3_butterfly_k018.png} \\
-	\includegraphics[width=0.4\textwidth]{figures/a3_butterfly_k020.png} &
-	\includegraphics[width=0.4\textwidth]{figures/a3_butterfly_k025.png} \\
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k015.png} &
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k018.png} \\
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k020.png} &
+	\includegraphics[width=0.5\textwidth]{figures/a3_butterfly_k025.png} \\
 	\end{tabular}
 	\caption{Illustration of the effect of different thresholds $t$. Top left: $t=0.15$. Top right: $t=0.18$. Bottom left: $t=0.20$. Bottom right: $t=0.25$.}
 	\label{fig:a3:thresholds}
@@ -56,7 +61,6 @@ Todo ...
 	\caption{LoG response for two selected keypoints. The top row shows the chosen keypoint, the second and third rows show the LoG response for the full-sized and half-sized image. Left: A white-on-black blob (negative LoG response), right: a black-on-white blob (positive LoG response).}
 	\label{fig:a3:logresponse}
 \end{figure}
-
 
 \subsection{Discussion}
 
