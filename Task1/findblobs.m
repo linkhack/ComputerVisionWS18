@@ -4,8 +4,8 @@ close all
 DOHALFSIZE=true;        % process half sized image in addition?
 DEBUG=false;
 DRAW_SEPARATE=false;    % draw circles for each scale in separate image?
-%FILENAME='res/butterfly.jpg';
-FILENAME='res/dalmatian.png';
+FILENAME='res/butterfly.jpg';
+%FILENAME='res/dalmatian.png';
 %FILENAME='res/mytest.png';
 
 % parameters
