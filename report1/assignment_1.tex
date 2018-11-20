@@ -13,6 +13,38 @@ In the initial version, we compare the values of R (red) channel as the base wit
 In a second version, first the best displacement for G channel against R channel is determined. Then we compare various B channel displacements against R+G2 (G2 is the best displacement of green channel found in the previous step). The blue channel displacement with the best score sum is used in the final image.
 The results were fairly equal in both cases, however the second experiment appears to deliver a better alignment slightly.
 
+The algorithm does not always deliver perfectly matching images, as illustrated by Figure \ref{fig:a1:imperfect}.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{cc}
+	\includegraphics[width=0.48\textwidth]{figures/00125_base.png} &
+	\includegraphics[width=0.48\textwidth]{figures/00125_v2.png} 
+
+	\end{tabular}
+	\caption{Base unmodified image and the final result. }
+	\label{fig:a1:alignment}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{cc}
+	\includegraphics[width=0.48\textwidth]{figures/00153_v1.png} &
+	\includegraphics[width=0.48\textwidth]{figures/00153_v2.png} 
+
+	\end{tabular}
+	\caption{Largest difference between first (left) and second methods. The better displacement of blue channel is clearly recognizable. }
+	\label{fig:a1:difference_v1_v2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.48\textwidth]{figures/00398_v2.png} 
+
+	\caption{Green channel is obviously not perfectly aligned, as visible around the outside of the trees. }
+	\label{fig:a1:imperfect}
+\end{figure}
+
 
 
 

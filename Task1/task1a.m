@@ -1,8 +1,11 @@
 %image number & read images
-imgNum = './res/00149';
-R = imread(strcat(imgNum, 'v_R.jpg'));
-G = imread(strcat(imgNum, 'v_G.jpg'));
-B = imread(strcat(imgNum, 'v_B.jpg'));
+imgNum = '00398';
+R = imread(join(['./res/', imgNum, 'v_R.jpg']));
+G = imread(join(['./res/', imgNum, 'v_G.jpg']));
+B = imread(join(['./res/', imgNum, 'v_B.jpg']));
+
+%%output base
+%imwrite(IMAGE, join([imgNum, '_base', '.PNG']));
 
 OFFSET = 15;
 
@@ -52,3 +55,6 @@ B2 = circshift(B, bestBShift);
 %output image
 IMAGE = cat(3, R, G2, B2);
 imshow(IMAGE);
+
+%write on disk:
+%imwrite(IMAGE, join([imgNum, '_v1', '.PNG']));
