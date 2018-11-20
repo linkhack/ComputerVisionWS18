@@ -7,9 +7,11 @@ The goal of this assignment is to assemble a colorized image given three color c
 \subsection{Methodology}
 
 For the above purpose, we use normalized cross-correlation as the matching metric. The return value of the metric for each displacement (-OFFSET:OFFSET) is saved and the best displacement is used to create the final image.
-In the initial version, we compare the values of Red channel as the base with Green and Blue Channels. The best displacement of Green and Blue compared to Red are used in the final image.
-In a second version, first the best displacement for Green channel against Red channel is determined. Then we compare various Blue channel displacements against Red+Green2 (displacement of green channel found in previous step). The Blue displacement with the best score sum is used in the final channel.
-The results were fairly equal in both cases, however the second experiment appears to deliver better alignment slightly.
+
+In the initial version, we compare the values of R (red) channel as the base with G (green) and B (blue) channels. The best displacement of G and B compared to R are used in the final image.
+
+In a second version, first the best displacement for G channel against R channel is determined. Then we compare various B channel displacements against R+G2 (G2 is the best displacement of green channel found in the previous step). The blue channel displacement with the best score sum is used in the final image.
+The results were fairly equal in both cases, however the second experiment appears to deliver a better alignment slightly.
 
 
 
