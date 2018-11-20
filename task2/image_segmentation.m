@@ -1,15 +1,19 @@
-function [centers, segmented_image,indicator_matrix] = image_segmentation(image_path,K,threshold,use_coordinates)
+function [segmented_image, centers, indicator_matrix] = image_segmentation(image_path,K,threshold,use_coordinates,distinct_colors)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
     if nargin<2
         throw MException("image_segmentation:NotEnoughParameters","Some Parameters are missing")
     end
     switch nargin
-        case 2:
+        case 2
             threshold = 0.001;
             use_coordinates = true;
-        case 3:
-            use_coordinates = true
+            distinct_colors = false;
+        case 3
+            use_coordinates = true;
+            distinct_colors = false;
+        case 4
+            distinct_colors = false
     end
     
     %load image
@@ -40,7 +44,11 @@ function [centers, segmented_image,indicator_matrix] = image_segmentation(image_
     %plotting stuff
     %color pixel with color of center
     %ktest3 = eye(3,5); %use this for 3 clusters, gives red,green or blue for respective segment
-    segmented_image = indicatorMatrix*centers;
+    if distinct_colors
+        segmented_image = indicator_matrix*distinguishable_colors(K);
+    else
+        segmented_image = indicator_matrix*centers;
+    end
     segmented_image = reshape(segmented_image(:,1:dimensions(3)),dimensions); %color is at position 1,2,3
 end
 

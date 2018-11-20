@@ -1,15 +1,22 @@
 \section{Assignment 2: Image Segmentation by \texorpdfstring{$K-$means}\ \ Clustering}
 \label{sec:assignment2}
 
-This is a text to test the layout.
+In this assignment we will use K-means clustering for image segmentation. K-means clustering is a very simple but effective clustering algoithm, but i comes also with some drawbacks. We will examine the strengts and weaknesses of this method applied to image segmentation.
 
 \subsection{Problem definition}
 
-This is a text to test the layout.
+Given an image I, we wish to devide it into disjoint regions. The regions should correspond to coherent regions in the image. The perfect result would be where each object is exectly in one region. Depending on the application this could mean that we want to seperate differenct colors, or textures, or we wish to seperate thee background and foreground, or a region for each object in the image. In this assignment we will examine K-means clustering applied to image segmentation.
+ In particular we will:
+\begin{itemize}
+	\item Implemet K-means clustering.
+	\item Study the influence of augmenting the color information with spatial information in the form if pixel coordinates.
+	\item Study the influence of the number of clusters chosen.
+	\item Discuss the advantages and disadventages of K-means clustering for image segmentation.
+\end{itemize}
 
 \subsection{Methodology}
 
-This is a text to test the layout.
+K-means clustering is an algorithm used to cluster data. It works as follows. Assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose k centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_l$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. 
 
 \subsection{Experiments}
 
