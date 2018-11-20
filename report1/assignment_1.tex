@@ -1,17 +1,18 @@
 \section{Assignment 1: Colorizing Images}
 \label{sec:assignment1}
 
-The goal of this assignment is to assemble a colorized image given three color channel images. As the three channels are not perfectly aligned the program has to also align them automatically.
+The goal of this assignment is to assemble a colorized image given three color channel images. As the three channels are not perfectly aligned the program has to also align them automatically. Figure \ref{fig:a1:alignment} demonstrates the importance of the alignment step.
 
 
 \subsection{Methodology}
 
 For the above purpose, we use normalized cross-correlation as the matching metric. The return value of the metric for each displacement (-OFFSET:OFFSET) is saved and the best displacement is used to create the final image.
 
-In the initial version, we compare the values of R (red) channel as the base with G (green) and B (blue) channels. The best displacement of G and B compared to R are used in the final image.
+In the initial version, we compare the values of the R (red) channel as the base with the G (green) and B (blue) channels. The best displacement of G and B compared to R are used in the final image.
 
-In a second version, first the best displacement for G channel against R channel is determined. Then we compare various B channel displacements against R+G2 (G2 is the best displacement of green channel found in the previous step). The blue channel displacement with the best score sum is used in the final image.
-The results were fairly equal in both cases, however the second experiment appears to deliver a better alignment slightly.
+In a second version, first the best displacement for the G channel against the R channel is determined. Then we compare various B channel displacements against R+G2 (G2 is the best displacement of the green channel found in the previous step). The blue channel displacement with the best score sum is used in the final image.
+The results are fairly equal in both cases, however the second experiment appears to deliver a slighty better alignment
+(Figure \ref{fig:a1:difference_v1_v2} shows the different results).
 
 The algorithm does not always deliver perfectly matching images, as illustrated by Figure \ref{fig:a1:imperfect}.
 
@@ -33,7 +34,7 @@ The algorithm does not always deliver perfectly matching images, as illustrated 
 	\includegraphics[width=0.48\textwidth]{figures/00153_v2.png} 
 
 	\end{tabular}
-	\caption{Largest difference between first (left) and second methods. The better displacement of blue channel is clearly recognizable. }
+	\caption{Largest difference between first (left) and second (right) method. The better displacement of the blue channel is clearly recognizable. }
 	\label{fig:a1:difference_v1_v2}
 \end{figure}
 
