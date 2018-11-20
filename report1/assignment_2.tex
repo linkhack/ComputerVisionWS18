@@ -1,26 +1,55 @@
 \section{Assignment 2: Image Segmentation by \texorpdfstring{$K-$means}\ \ Clustering}
 \label{sec:assignment2}
 
-In this assignment we will use K-means clustering for image segmentation. K-means clustering is a very simple but effective clustering algoithm, but i comes also with some drawbacks. We will examine the strengts and weaknesses of this method applied to image segmentation.
+In this assignment we will use K-means clustering for image segmentation. K-means clustering is a very simple but effective clustering algorithm, but i comes also with some drawbacks. We will examine the strengths and weaknesses of this method applied to image segmentation.
 
 \subsection{Problem definition}
 
-Given an image I, we wish to devide it into disjoint regions. The regions should correspond to coherent regions in the image. The perfect result would be where each object is exectly in one region. Depending on the application this could mean that we want to seperate differenct colors, or textures, or we wish to seperate thee background and foreground, or a region for each object in the image. In this assignment we will examine K-means clustering applied to image segmentation.
+Given an image I, we wish to divide it into disjoint regions. The regions should correspond to coherent regions in the image. The perfect result would be where each object is exactly in one region. Depending on the application this could mean that we want to separate different colors, or textures, or we wish to separate tee background and foreground, or a region for each object in the image. In this assignment we will examine K-means clustering applied to image segmentation.
  In particular we will:
 \begin{itemize}
-	\item Implemet K-means clustering.
+	\item Implement K-means clustering.
 	\item Study the influence of augmenting the color information with spatial information in the form if pixel coordinates.
 	\item Study the influence of the number of clusters chosen.
-	\item Discuss the advantages and disadventages of K-means clustering for image segmentation.
+	\item Discuss the advantages and disadvantages of K-means clustering for image segmentation.
 \end{itemize}
 
 \subsection{Methodology}
 
-K-means clustering is an algorithm used to cluster data. It works as follows. Assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose k centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_l$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. 
+K-means clustering is an algorithm used to cluster data. It works as follows. Assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose k centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_l$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. We can define an objective function, which the K-means clustering algorithm tries to optimize. For this we define the distortion as
+\begin{equation}
+	J = \sum_{n=1}^{N} \sum_{k=1}^{K} r(n,k) \left\|x_n-\mu_k\right\|^2.
+\end{equation}
+This is the sum of squared distances from each data point to its assigned centroid. We wish to minimize the distortion. For this we use following iterative K-means clustering method:
+\begin{enumerate}
+\item Initialize the $K$ centroids $\mu_k$ with random values.
+\item Assign each data point $x_i$ to its nearest centroid $\mu_j$ and update the indicator matrix
+\[
+	r(i,j)= \begin{cases}
+               1 \text{, if } j = \argmin_k\left\|x_i-\mu_k\right\| \\
+
+             0 \text{ otherwise.}
+            \end{cases}
+\]
+\item Calculate new centroids $\mu_k$ as the mean of all date points assigned to the k-th cluster, i.e. 
+\[
+	\mu_k = \frac{\sum\limits_{i=1}^N r(i,k) x_i}{\sum\limits_{i=1}^N r(i,k)}
+\]
+\item Calculate the distortion J with the new assignment and centroids and check for convergence. This is done by checking if the ratio of the old and new $J$ doesn't change anymore, i.e if the ratio lies below a user given threshold. We used the absolute value of 1 minus the ratio, so that the algorithm can also make $J$ a little worse, as this could make the end result better. As long as J did not converge repeat steps 2 to 4.
+\end{enumerate} 
+
+We used two different methods to get data points from pixel values. One is to just take the color values of each pixel, the other is to normalize each coordinate of a pixel to $[0, 1]$ and use the color value and the coordinate of a pixel giving a 5 dimensional space.
+
+To illustrate the results we can color each pixel in the image with the color of the associated centroid. Alternatively we can associate the clusters with mutually distinct colors and color the image using these colors, instead of the value of the center. This helps to better see the cluster boundaries.
 
 \subsection{Experiments}
 
-This is a text to test the layout.
+We analyzed K-means clustering for image segmentation with the test images "future.jpg", "mm.jpg and "simple.PNG" and made following experiments. Firstly we cluster each image with 3 and 5 clusters and with and without use of coordinates. Then we examine separately the image "mm.jpg". We will use different K values and vary the use coordinates. We will also run the algorithm several times on "simple.PNG" to show the effect of bad initiation.
+
+\subsubsection{Influence of using coordinates}
+
+
+
 
 \subsection{Discussion}
 
