@@ -27,7 +27,7 @@ imshow(image2)
 title("K=5, coordinates used")
 %TODO: make legend
 
-
+%%
 K=3
 figure()
 image1 = image_segmentation('./Images/mm.jpg', K, precision, false, false);
@@ -52,8 +52,7 @@ subplot(2,2,4)
 imshow(image2)
 title("K=5, coordinates used")
 
-%TODO: make legend
-
+%%
 figure()
 K=3
 image1 = image_segmentation('./Images/simple.PNG', K, precision, false, false);
@@ -107,7 +106,7 @@ for i = 1:6
     imshow(seg_image)
     title("K= " + Karray(i) + ", no coordinates used")
 end
-
+%%
 figure()
 for i = 1:6
     seg_image = image_segmentation('./Images/mm.jpg',Karray(i),precision,true,true);
