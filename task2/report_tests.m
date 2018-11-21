@@ -4,7 +4,7 @@ K=3;
 precision = 0.0000001;
 figure()
 
-image1 = image_segmentation('./Images/future.jpg', K, precision, true, false);
+image1 = image_segmentation('./Images/future.jpg', K, precision, false, false);
 subplot(2,2,1)
 imshow(image1)
 title("K=3, no coordinates used")
