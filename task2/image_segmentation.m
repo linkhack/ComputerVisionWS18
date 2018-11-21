@@ -2,7 +2,7 @@ function [segmented_image, centers, indicator_matrix] = image_segmentation(image
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
     if nargin<2
-        throw MException("image_segmentation:NotEnoughParameters","Some Parameters are missing")
+        throw( MException('image_segmentation:NotEnoughParameters','Some Parameters are missing') )
     end
     switch nargin
         case 2

@@ -4,9 +4,9 @@
 
 %image number & read images
 imgNum = '00398';
-R = imread(join(['./res/', imgNum, 'v_R.jpg']));
-G = imread(join(['./res/', imgNum, 'v_G.jpg']));
-B = imread(join(['./res/', imgNum, 'v_B.jpg']));
+R = imread(['./res/', imgNum, 'v_R.jpg']);
+G = imread(['./res/', imgNum, 'v_G.jpg']);
+B = imread(['./res/', imgNum, 'v_B.jpg']);
 
 %%output base
 %imwrite(cat(3, R, G, B), join([imgNum, '_base', '.PNG']));
