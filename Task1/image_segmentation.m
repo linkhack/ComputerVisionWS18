@@ -7,7 +7,7 @@ function [segmented_image, centers, indicator_matrix] = image_segmentation(image
 %   distinct_colors=false determines if cluster centroids (false) or distinct
 %   colors (true) should be used
     if nargin<2
-        throw MException("image_segmentation:NotEnoughParameters","Some Parameters are missing")
+        throw( MException('image_segmentation:NotEnoughParameters','Some Parameters are missing') )
     end
     switch nargin
         case 2

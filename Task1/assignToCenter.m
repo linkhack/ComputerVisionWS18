@@ -25,7 +25,7 @@ memberNumber = sum(indicator); %data points in each clusters
 emptyClusters = memberNumber==0; %indicator of empty clusters
 if (sum(emptyClusters)>0)
     randomIndexes = randperm(size(data,1),sum(emptyClusters)); %index of random datapoint
-    sum(emptyClusters) + " empty clusters found"
+    [num2str(sum(emptyClusters)) ' empty clusters found']
     %assign random datapoint to cluster 
     k=1;
     for j = find(emptyClusters)
