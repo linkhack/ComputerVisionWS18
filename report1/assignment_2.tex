@@ -9,14 +9,14 @@ Given an image, the goal is to divide it into disjoint regions. These regions sh
  In particular we:
 \begin{itemize}[noitemsep]
 	\item Implement K-means clustering.
-	\item Study the influence of augmenting the color information with spatial information in the form of pixel coordinates.
+	\item Study the influence of augmenting the color information with spatial information in the form of normalized pixel coordinates.
 	\item Study the influence of the number of clusters chosen.
 	\item Discuss the advantages and disadvantages of K-means clustering for image segmentation.
 \end{itemize}
 
 \subsection{Methodology}
 
-K-means clustering is an algorithm used to cluster data. It works as follows: assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose k centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_l$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. We can define an objective function, which the K-means clustering algorithm tries to optimize. For this we define the distortion as
+K-means clustering is an algorithm used to cluster data. It works as follows: assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose K centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_k$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. We can define an objective function, which the K-means clustering algorithm tries to optimize. For this we define the distortion as
 \begin{equation}
 	J = \sum_{n=1}^{N} \sum_{k=1}^{K} r(n,k) \left\|x_n-\mu_k\right\|^2.
 \end{equation}
@@ -38,13 +38,22 @@ This is the sum of squared distances from each data point to its assigned centro
 \item Calculate the distortion J with the new assignment and centroids and check for convergence. This is done by checking if the ratio of the old and new $J$ does not change any more, i.e if the ratio lies below a user given threshold. We use the absolute value of 1 minus the ratio, so that the algorithm can also make $J$ a little worse, as this could make the end result better. As long as J does not converge, repeat steps 2 to 4.
 \end{enumerate} 
 
-We use two different methods to get data points from pixel values. One is to just take the color values of each pixel, the other is to normalize each coordinate of a pixel to $[0, 1]$ and use the color value and the coordinate of a pixel, resulting in a 5-dimensional space.
+We use two different methods to get data points from pixel values. One is to just take the color values of each pixel, the other is to normalize each coordinate of a pixel to $[0, 1]$ and use the color value and the coordinate of the pixel, resulting in a 5-dimensional space.
 
 To illustrate the results we can color each pixel in the image with the color of the associated centroid. Alternatively we can associate the clusters with mutually distinct colors and colorize the image using these, instead of the value of the centre. This helps to better see the cluster boundaries.
 
 \subsection{Experiments}
 
-We analysed K-means clustering for image segmentation with the test images \texttt{future.jpg}, \texttt{mm.jpg} and \texttt{simple.PNG}, and made the following experiments: first we clustered each image into 3 and 5 clusters, both with and without the use of coordinates. Then we separately examined the image \texttt{mm.jpg}. We used different K values and varied the use of coordinates. We also ran the algorithm several times on \texttt{simple.PNG} to show the effect of bad initiation.
+We analyzed K-means clustering for image segmentation with the test images \texttt{future.jpg}, \texttt{mm.jpg} and \texttt{simple.PNG}, and made the following experiments: first we clustered each image into 3 and 5 clusters, both with and without the use of coordinates. Then we separately examined the image \texttt{mm.jpg}. We used different K values and varied the use of coordinates. We also ran the algorithm several times on \texttt{simple.PNG} to show the effect of bad initiation.
+
+In the figure \ref{fig:testimages} the test images are shown. The "future.jpg" images shows a drawn image. It contains only a restricted color palette. The test image "mm.jpg" is a photography of a advertisement screen. It has a lot of artifacts in the screen which makes segmentation more difficult. The third test image "simple.PNG" is a artificially generated image. It just contains 2 filled circles on a uniform background. It should be very easy to segment this image.
+\begin{figure}[h!]
+	\includegraphics[width=0.38\linewidth]{figures/task2/future.jpg}
+	\includegraphics[width=0.398\linewidth]{figures/task2/mm.jpg}
+	\includegraphics[width=0.15\linewidth]{figures/task2/simple.PNG}
+	\caption{The 3 test images. From left to right: future, mm and simple.}
+	\label{fig:testimages}
+\end{figure}
 
 \subsubsection{Influence of using coordinates}
 
@@ -54,11 +63,15 @@ Figures \ref{fig:future:coords}, \ref{fig:mm:coords} and \ref{fig:simple:coords}
 \caption{Coordinate experiment for \texttt{future.jpg}}
 \label{fig:future:coords}
 \end{figure}
+
+For the "future.jpg" image we can see that the segmentation without using coordinates produces a pleasing result. It can separate the different colors very accurately. This is the case as the image contains only a limited number of colors, and all colors in a coherent region have the same color. For the clustering with coordinates it appears that the algorithm found less clusters than K. This is the case as the background gets segmented into multiple regions. This happens, because the pixels on the right and on the left have on one hand the same color, but are spatially far apart, so it makes sense to split the background in a left region and right region. For $K=5$ the image gets split into 3 background region a top part of person region and a bottom part of person region. We can see that not only the color is important, but also the spacial relation. We can already see here, that using the colors of the cluster center makes the inspection of the result hard, as several cluster, in particular for the case which uses coordinates, can have the same or very similar colors.
 \begin{figure}
 \includegraphics[width = 0.9\linewidth]{figures/task2/mm_coordinates.png}
 \caption{Coordinate experiment for \texttt{mm.jpg}}
 \label{fig:mm:coords}
 \end{figure}
+
+
 \begin{figure}[h]
 \includegraphics[width = 0.9\linewidth]{figures/task2/simple_coordinates.png}
 \caption{Coordinate experiment for \texttt{simple.PNG}}
