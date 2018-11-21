@@ -1,4 +1,4 @@
-\section{Assignment 2: Image Segmentation by \texorpdfstring{$K-$means}\ \ Clustering}
+\section{Assignment 2: Image Segmentation by $K-$means\ \ Clustering}
 \label{sec:assignment2}
 
 In this assignment we use K-means clustering for image segmentation. K-means clustering is a very simple but effective clustering algorithm, but it also comes with some drawbacks. We examine the strengths and weaknesses of this method applied to image segmentation.
@@ -16,6 +16,7 @@ Given an image, the goal is to divide it into disjoint regions. These regions sh
 
 \subsection{Methodology}
 
+\subsection{Overview}
 K-means clustering is an algorithm used to cluster data. It works as follows: assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose K centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_k$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. We can define an objective function, which the K-means clustering algorithm tries to optimize. For this we define the distortion as
 \begin{equation}
 	J = \sum_{n=1}^{N} \sum_{k=1}^{K} r(n,k) \left\|x_n-\mu_k\right\|^2.
@@ -42,6 +43,18 @@ We use two different methods to get data points from pixel values. One is to jus
 
 To illustrate the results we can color each pixel in the image with the color of the associated centroid. Alternatively we can associate the clusters with mutually distinct colors and colorize the image using these, instead of the value of the centre. This helps to better see the cluster boundaries.
 
+\subsection{Implementation}
+
+You can run the image segmentation with the function \texttt{image\_segmentation(image\_path, K, precision, use\_coordinates, use\_distinct\_colors)}, where \texttt{image\_path} is the path to the image, \texttt{K} is number of clusters, \texttt{precision} is the precision used for the convergence criterion of the distortion, \texttt{use\_coordinates} iis a boolean that says if coordinates should be used or not and \texttt{use\_distinctcolors} is a boolean that if true colors the result with distinct colors or the color of the cluster center otherwise. It returns the segmented image, colored with the chosen option, the cluster centroids and the indicator matrix.
+ We will explain some details of the implementation of the next part.
+
+To make use of vectorization and matrix operations we vectorize the image. That means instead of indexing pixels by two indexes we use just one. This has the advantage that the indicator matrix is a two dimensional matrix. Thus we have that $r(i,j)*centroids$, where centroids is the vector of centroids, gives the centroid asspociated with each data point. And if $X$ is the data matrix, i.e $X(i,:)$ is the i-th data point, that $(r(i,j)^T * X$ gives the sum of all data points associated with one cluster.
+
+As mentioned above we use $\vert 1-J_old/J_new\vert < \text{precision}$ as a convergence criterion, where we take absolute values, so that the objective value can also get a worse.
+
+One problem is that calculating the mean of the data of a cluster is not possible if the cluster is empty. This can happen in the assignment stage. To fix this, we choose for each empty cluster a random data point and remove this from its cluster and add it to the empty cluster.
+
+The function distinguishible\_colors waas taken from mathworks.com/matlabcentral/fileexchange and the relevant license is included.
 \subsection{Experiments}
 
 We analyzed K-means clustering for image segmentation with the test images \texttt{future.jpg}, \texttt{mm.jpg} and \texttt{simple.PNG}, and made the following experiments: first we clustered each image into 3 and 5 clusters, both with and without the use of coordinates. Then we separately examined the image \texttt{mm.jpg}. We used different K values and varied the use of coordinates. We also ran the algorithm several times on \texttt{simple.PNG} to show the effect of bad initiation.
