@@ -29,7 +29,7 @@ function [centers,indicatorMatrix] = myKMeans(data,K,threshold)
         %absolute value. ratio because we don't know abbsolute value or
         %typical change
         
-        improvement = abs(1- distortionOld/distortion);
+        improvement = abs(1- distortion/distortionOld);
         distortionOld=distortion;
     end
 end
