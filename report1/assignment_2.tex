@@ -60,7 +60,7 @@ The function distinguishible\_colors waas taken from mathworks.com/matlabcentral
 We analyzed K-means clustering for image segmentation with the test images \texttt{future.jpg}, \texttt{mm.jpg} and \texttt{simple.PNG}, and made the following experiments: first we clustered each image into 3 and 5 clusters, both with and without the use of coordinates. Then we separately examined the image \texttt{mm.jpg}. We used different K values and varied the use of coordinates. We also ran the algorithm several times on \texttt{simple.PNG} to show the effect of bad initiation.
 
 In the figure \ref{fig:testimages} the test images are shown. The "future.jpg" images shows a drawn image. It contains only a restricted color palette. The test image "mm.jpg" is a photography of a advertisement screen. It has a lot of artifacts in the screen which makes segmentation more difficult. The third test image "simple.PNG" is a artificially generated image. It just contains 2 filled circles on a uniform background. It should be very easy to segment this image.
-\begin{figure}[h!]
+\begin{figure}[h]
 	\includegraphics[width=0.38\linewidth]{figures/task2/future.jpg}
 	\includegraphics[width=0.398\linewidth]{figures/task2/mm.jpg}
 	\includegraphics[width=0.15\linewidth]{figures/task2/simple.PNG}
@@ -71,20 +71,26 @@ In the figure \ref{fig:testimages} the test images are shown. The "future.jpg" i
 \subsubsection{Influence of using coordinates}
 
 Figures \ref{fig:future:coords}, \ref{fig:mm:coords} and \ref{fig:simple:coords} illustrate the result of the segmentation by coloring each pixel by the color value of its associated centroid. We show the influence of the usage of coordinates for K=3 and K=5 clusters for each test image.
-\begin{figure}[h!]
+\begin{figure}[h]
 \includegraphics[width = 0.9\linewidth]{figures/task2/future_coordinates.png}
 \caption{Coordinate experiment for \texttt{future.jpg}}
 \label{fig:future:coords}
 \end{figure}
-
 For the "future.jpg" image we can see that the segmentation without using coordinates produces a pleasing result. It can separate the different colors very accurately. This is the case as the image contains only a limited number of colors, and all colors in a coherent region have the same color. For the clustering with coordinates it appears that the algorithm found less clusters than K. This is the case as the background gets segmented into multiple regions. This happens, because the pixels on the right and on the left have on one hand the same color, but are spatially far apart, so it makes sense to split the background in a left region and right region. For $K=5$ the image gets split into 3 background region a top part of person region and a bottom part of person region. We can see that not only the color is important, but also the spacial relation. We can already see here, that using the colors of the cluster center makes the inspection of the result hard, as several cluster, in particular for the case which uses coordinates, can have the same or very similar colors.
+
 \begin{figure}
 \includegraphics[width = 0.9\linewidth]{figures/task2/mm_coordinates.png}
 \caption{Coordinate experiment for \texttt{mm.jpg}}
 \label{fig:mm:coords}
 \end{figure}
+First we see again that we can't really see the different clusters, as they have very similar colors and we will explain this later. Therefore we repeated the experiment for $K=5$ snd used distinct colors. The result is shown in figure \ref{fig:mm:coords:distinct}. We see that for $K=3$ withoout coordinates it seperated the image into a white, black and blue region. With the use of coordinates it again seperated the image into a blue foreground region and 2 background regions. As the average of the background is everywhere similar we can't see the different clusters. For K=5 it seperated the image into 5 colors. as only the color is important, we can see a lot of fine details in the background, on the other hand if we use coordinates the fine details aren't preserved, as they don't form a connected region. K-means basically produces a veroni tesselation of the space. Therefor the regions should be polygons or circles. If we use distinct colors we can clearly see in figure \ref{fig:mm:coords:distinct}, that only using colors produces very spatially irregular structures, as they are only defined by color on not their spacial relation. On the other hand, if we use coordinates the algorithm produces spatially regular regions. Only on the border between two regions irregularities can occur, as at that position color is more important, because the distance in spatial domain to the two centers is equal.
+\begin{figure}
+\includegraphics[width = 0.9\linewidth]{figures/task2/mm_bad_visibility.png}
+\caption{Coordinate experiment for \texttt{mm.jpg} with distinct colors.}
+\label{fig:mm:coords:distinct}
+\end{figure}
 
-
+The clustering algorithm has no problem segmenting such an image. For $K=5$ the algorithm has to produce too many clusters. Without spatial information it just creates to extra clusters containing only a singel pixel. With spatial information, it devides two of the cluster into a left and right part, or top and bottom part.
 \begin{figure}[h]
 \includegraphics[width = 0.9\linewidth]{figures/task2/simple_coordinates.png}
 \caption{Coordinate experiment for \texttt{simple.PNG}}

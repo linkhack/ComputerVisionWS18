@@ -15,7 +15,7 @@ imshow(image2)
 title("K=3, coordinates used")
 %TODO: make legend
 
-K=5
+K=5;
 image1 = image_segmentation('./Images/future.jpg', K, precision, false, false);
 subplot(2,2,3)
 imshow(image1)
@@ -28,7 +28,7 @@ title("K=5, coordinates used")
 %TODO: make legend
 
 %%
-K=3
+K=3;
 figure()
 image1 = image_segmentation('./Images/mm.jpg', K, precision, false, false);
 subplot(2,2,1)
@@ -41,7 +41,7 @@ imshow(image2)
 title("K=3, coordinates used")
 %TODO: make legend
 
-K=5
+K=5;
 image1 = image_segmentation('./Images/mm.jpg', K, precision, false, false);
 subplot(2,2,3)
 imshow(image1)
@@ -54,7 +54,7 @@ title("K=5, coordinates used")
 
 %%
 figure()
-K=3
+K=3;
 image1 = image_segmentation('./Images/simple.PNG', K, precision, false, false);
 subplot(2,2,1)
 imshow(image1)
@@ -66,7 +66,7 @@ imshow(image2)
 title("K=3, coordinates used")
 %TODO: make legend
 
-K=5
+K=5;
 image1 = image_segmentation('./Images/simple.PNG', K, precision, false, false);
 subplot(2,2,3)
 imshow(image1)
@@ -81,7 +81,7 @@ title("K=5, coordinates used")
 %%
 %%Hard to see stuff, so do K=5 image = mm.jpg with distinct colors
 figure()
-K=5
+K=3;
 image1 = image_segmentation('./Images/mm.jpg', K, precision, false, true);
 subplot(1,2,1)
 imshow(image1)
