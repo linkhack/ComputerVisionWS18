@@ -115,3 +115,12 @@ for i = 1:6
     title("K= " + Karray(i) + ", coordinates used")
 end
 
+%%
+%Bad initialization
+for i=1:20
+    figure()
+    seg_image = image_segmentation('./Images/simple.PNG',3,precision,false,true);
+    imshow(seg_image)
+    title("Bad initialization")
+end
+
