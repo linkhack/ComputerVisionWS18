@@ -16,7 +16,7 @@ Given an image, the goal is to divide it into disjoint regions. These regions sh
 
 \subsection{Methodology}
 
-\subsection{Overview}
+\subsubsection{Overview}
 K-means clustering is an algorithm used to cluster data. It works as follows: assume we have data $x_1,\ldots,x_N \in \mathbb{R}^n$. We first chose K centroids $\mu_k \in \mathbb{R}^n$ randomly. Then we assign each data point $x_i$ to the centroid $\mu_j$ which minimizes the distance between $x_i$ and the centroids $\mu_k$. To record this relation we use an indicator matrix $r(i,j) \in \{0,1\}$, with $r(i,j)=1$ if data point $x_i$ is assigned to centroid $\mu_j$ and $0$ otherwise. We can define an objective function, which the K-means clustering algorithm tries to minimize. For this we define the distortion as
 \begin{equation}
 	J = \sum_{n=1}^{N} \sum_{k=1}^{K} r(n,k) \left\|x_n-\mu_k\right\|^2.
@@ -43,7 +43,7 @@ We use two different methods to get data points from pixel values. One is to jus
 
 To illustrate the results we can color each pixel in the image with the color of the associated centroid. Alternatively we can associate the clusters with mutually distinct colors and colorize the image using these, instead of the value of the centre. This helps to better see the cluster boundaries.
 
-\subsection{Implementation}
+\subsubsection{Implementation}
 
 The image segmentation can be run with the function \texttt{image\_segmentation(image\_path, K, precision, use\_coordinates, use\_distinct\_colors)}, where \texttt{image\_path} is the path to the image, \texttt{K} is number of clusters, \texttt{precision} is the precision used for the convergence criterion of the distortion, \texttt{use\_coordinates} is a boolean that determines if coordinates should be used or not, and \texttt{use\_distinctcolors} is another boolean, deciding if the result shall be colorized with distinct colors (if true) or by using the color of the cluster center (if false). It returns the segmented image, colored with the chosen option, the cluster centroids and the indicator matrix.
  We explain some details of the implementation below.
@@ -108,7 +108,7 @@ The clustering algorithm has no problem segmenting an image like \texttt{simple.
 \label{fig:simple:coords}
 \end{figure}
 
-\subsection{Experimenting with the number of clusters}
+\subsubsection{Experimenting with the number of clusters}
 In a second experiment we took the picture \texttt{mm.jpg} and segmented it using different number of clusters, again both with and without using coordinates. The results are shown in Figure \ref{fig:mm:nocoords:manyK} and \ref{fig:mm:coords:manyK}. We used distinct colors for colorization, in order to better distinguish the resulting clusters.
 
 \begin{figure}[h!]
