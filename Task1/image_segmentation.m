@@ -1,8 +1,13 @@
 function [segmented_image, centers, indicator_matrix] = image_segmentation(image_path,K,threshold,use_coordinates,distinct_colors)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%UNTITLED4 Segments the image using K-means clustering
+%   image_path = path to image
+%   K = number of clusters
+%   threshold=0.001 is the precision used for K-means
+%   use_coordinates=true determines if coordinates should be used
+%   distinct_colors=false determines if cluster centroids (false) or distinct
+%   colors (true) should be used
     if nargin<2
-        throw( MException('image_segmentation:NotEnoughParameters','Some Parameters are missing') )
+        throw MException("image_segmentation:NotEnoughParameters","Some Parameters are missing")
     end
     switch nargin
         case 2
