@@ -113,7 +113,7 @@ for i = 1:6
 end
 
 %%
-%Bad initialization. Run the segmentation 20 times and shpw result
+%Bad initialization. Run the segmentation 20 times and show result
 for i=1:20
     figure()
     seg_image = image_segmentation('./res/simple.PNG',3,precision,false,true);
