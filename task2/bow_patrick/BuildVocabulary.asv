@@ -1,0 +1,15 @@
+function vocabulary = BuildVocabulary(folder,num_clusters)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+vocabulary = zeros([128,num_clusters])
+
+folders = dir(folder);
+for i = 3:length(folders)
+    current_folder = strcat(folders(i).folder,'\',folders(i).name);
+    train_image_folder = dir(current_folder);
+    for image_index = 3:length(train_image_folder)
+    
+    end
+end
+end
+
