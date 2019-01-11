@@ -4,7 +4,7 @@ function vocabulary = BuildVocabulary(folder,num_clusters)
 
     folders = dir(folder);
     sift_features = [];
-
+    
     %% Extract Sift Features
     for i = 3:length(folders)
         current_folder = strcat(folders(i).folder,'\',folders(i).name);
