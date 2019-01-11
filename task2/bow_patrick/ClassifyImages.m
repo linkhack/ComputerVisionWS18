@@ -21,7 +21,7 @@ function [conf_matrix, predictions] = ClassifyImages(folder,vocabulary, training
             % knn_result = knnclassify(word_histogram, training, group, 3);
             knn_result = predict(knn_model, word_histogram);
             conf_matrix(i-2,knn_result) = conf_matrix(i-2,knn_result)+1;
-            prediction = [prediction, knn_result]
+            predictions = [predictions, knn_result];
         end
     end
 end

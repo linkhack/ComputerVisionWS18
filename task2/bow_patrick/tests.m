@@ -12,5 +12,5 @@ toc
 %% Classify test images
 tic
 disp('Classify test Images')
-conf_matrix = ClassifyImages('res/test',voc,training,groups);
+[conf_matrix, predictions] = ClassifyImages('res/test',voc,training,groups);
 toc
