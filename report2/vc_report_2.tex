@@ -1,0 +1,109 @@
+
+%\documentclass[a4paper,twocolumn,psfig,subfigure,epsfig,fleqn,ausarbeitung,amssmb,float,caption,fontenc]{article}
+\documentclass[a4paper,psfig,subfigure,epsfig,ausarbeitung,amssmb,float,caption,fontenc]{article}
+ 
+\pagestyle{empty}
+
+\bibliographystyle{plain}
+
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[section]{placeins} % to avoid figures floating out of the current section
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%set dimensions of columns, gap between columns, and paragraph indent
+
+\setlength{\textheight}{24.7 cm}
+\setlength{\columnsep}{1 cm}
+\setlength{\textwidth}{16 cm}
+%\setlength{\footheight}{0.0 cm}
+\setlength{\topmargin}{0.0 cm}
+\setlength{\headheight}{0.0 cm}
+\setlength{\headsep}{-0.3 cm}
+\setlength{\oddsidemargin}{0.0 cm}
+\setlength{\parindent}{0.7 cm}
+%\setlength{\mathindent}{20mm}
+
+% set page counter if document is part of proceedings
+\setcounter{page}{23}
+\renewcommand{\floatpagefraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%\renewcommand{\captionlabelfont}{\fontfamily{phv}\fontseries{bx}\fontsize{10}{10pt}\selectfont}
+%\renewcommand{\captionfont}{\fontfamily{phv}\fontsize{10}{12pt}\selectfont}
+%\setlength{\captionmargin}{0.5 cm}
+
+\makeatletter
+\makeatother
+\def\RR{\hbox{I\kern-.2em\hbox{R}}}
+
+
+\begin{document}
+
+%don't want date printed
+\date{}
+
+%make title bold and 14 pt font (Latex default is non-bold, 16pt) 
+\title{%~\\
+%  ~\\
+  \fontsize{14}{14pt} \bf Computer Vision Exercise II: Report}
+
+\author{~\\
+  ~\\
+  \fontsize{12}{12pt}
+  \begin{tabular}[t]{c c c}
+  {\bf Alexander Cech}                    & {\bf Hamed Jafari-Sahamieh}             & {\bf Patrick Link}                      \\
+  \small{Student of Visual Computing}     & \small{Student of Visual Computing}     & \small{Student of Visual Computing}     \\
+  \small{Vienna University of Technology} & \small{Vienna University of Technology} & \small{Vienna University of Technology} \\
+  \small{e08900070@student.tuwien.ac.at}  & \small{e09826767@student.tuwien.ac.at}  & \small{e11728332@student.tuwien.ac.at}  \\
+  \end{tabular}
+  ~\\ 
+%  ~\\ ~\\
+  \normalsize
+%  {\bf ABSTRACT} \\ 
+%  \noindent
+%  \hspace{0.2cm}
+%  \begin{minipage}[c]{15cm}
+%  \normalsize This is my abstract.  This is my abstract.  This is my
+%    abstract.  This is my abstract.  This is my abstract.  This is my
+%    abstract.  This is my abstract.  This is my abstract.  This is my
+%    abstract.  This is my abstract.  This is my abstract.  This is my
+%    abstract.\\
+%  \end{minipage}
+%  ~\\ ~\\ ~\\
+  \normalsize
+%  {\bf KEYWORDS} \\ 
+%  \normalsize
+%  Keyword1, Keyword2, Keyword3, Keyword4, Keyword5, Keyword6.
+  }
+
+\maketitle
+
+%I don't know why I have to reset thispagestyle, but otherwise get page numbers 
+\normalfont
+\thispagestyle{empty}
+
+%\section{Introduction}
+%\label{sec:introduction}
+%
+%
+
+
+\input {assignment_4}
+\FloatBarrier % keep figures above!
+
+\input {assignment_5}
+\FloatBarrier % keep figures above!
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
