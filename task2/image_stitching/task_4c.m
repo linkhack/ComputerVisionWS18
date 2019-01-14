@@ -1,16 +1,21 @@
 clear all; close all;
 
-baseFileName = 'campus';
-%baseFileName = 'officeview';
-directory = 'res/';
-extension = '.jpg';
-numImages = 5;
+imageinfo = {'res/','campus',    '.jpg',1,5};
+%imageinfo = {'res/','officeview','.jpg',1,5};
+%imageinfo = {'../../../testimg/lores/','zimmer_','.jpg',5,7};
+
+directory    = imageinfo{1};
+baseFileName = imageinfo{2};
+extension    = imageinfo{3};
+firstNumber  = imageinfo{4};
+lastNumber   = imageinfo{5};
+numImages    = lastNumber - firstNumber;
 
 % load images
 I_orig = cell(numImages,1);
 I = cell(numImages,1);
 for i = 1:numImages
-    filename = sprintf('%s%s%d%s', directory, baseFileName, i, extension);
+    filename = sprintf('%s%s%d%s', directory, baseFileName, i + firstNumber - 1, extension);
     I_orig{i} = im2single(imread(filename));
     I{i} = im2single(rgb2gray(I_orig{i}));
 end
