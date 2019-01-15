@@ -1,9 +1,15 @@
 clear all; close all;
 
-%imageinfo = {'res/','campus',    '.jpg',1,5};
-imageinfo = {'res/','officeview','.jpg',1,5};
+% image params: dir, basename, extension, first image #, last image #
+
+imageinfo = {'res/','campus',    '.jpg',1,5};
+%imageinfo = {'res/','officeview','.jpg',1,5};
 %imageinfo = {'../../../testimg/lores/','zimmer_','.jpg',5,7};
 %imageinfo = {'../../../testimg/lores/','wiese_','.jpg',1,5};
+
+% save output files? -> task_4c_unblended.png, task4c_feathered.png
+saveresults = true;
+
 
 directory    = imageinfo{1};
 baseFileName = imageinfo{2};
@@ -89,6 +95,7 @@ for i = 1:numImages
     pano = pano .* (1-Ibm{i}) + Iw{i} .* Ibm{i};
 end
 figure('Name','Panorama with binary mask'); imshow(pano);
+if saveresults; imwrite(pano, 'task_4c_unblended.png'); end
 
 pano = zeros([panoSize(1) panoSize(2) 3], 'like', I{1});
 sumA = zeros([panoSize(1) panoSize(2)]);
@@ -96,8 +103,10 @@ for i = 1:numImages
     pano = pano + Iw{i} .* Ifm{i};  % just add up all (feathered) images
     sumA = sumA + Ifm{i};           % and add up the alpha values
 end
+sumA(sumA==0) = 1; % avoid division by zero and preserve black background for saving
 pano = pano ./ sumA; % final color = Sum((R,G,B)*alpha)/Sum(alpha)
 figure('Name','Panorama feathered'); imshow(pano);
+if saveresults; imwrite(pano, 'task_4c_feathered.png'); end
 
 % blender = vision.AlphaBlender('Operation','Binary mask','MaskSource','Input port');
 % pano = zeros([panoSize(1) panoSize(2) 3], 'like', I{1});
