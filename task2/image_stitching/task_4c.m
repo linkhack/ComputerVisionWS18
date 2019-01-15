@@ -1,15 +1,16 @@
 clear all; close all;
 
-imageinfo = {'res/','campus',    '.jpg',1,5};
-%imageinfo = {'res/','officeview','.jpg',1,5};
+%imageinfo = {'res/','campus',    '.jpg',1,5};
+imageinfo = {'res/','officeview','.jpg',1,5};
 %imageinfo = {'../../../testimg/lores/','zimmer_','.jpg',5,7};
+%imageinfo = {'../../../testimg/lores/','wiese_','.jpg',1,5};
 
 directory    = imageinfo{1};
 baseFileName = imageinfo{2};
 extension    = imageinfo{3};
 firstNumber  = imageinfo{4};
 lastNumber   = imageinfo{5};
-numImages    = lastNumber - firstNumber;
+numImages    = lastNumber - firstNumber + 1;
 
 % load images
 I_orig = cell(numImages,1);
