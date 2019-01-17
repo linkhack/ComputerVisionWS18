@@ -1,6 +1,6 @@
 %% Vocab building
 disp('Building Vocabulary')
-voc = BuildVocabulary('res/train',75);
+voc = BuildVocabulary('res/train',100);
 
 %% KNN building
 disp('Building KNN')
@@ -24,9 +24,6 @@ fprintf('%.3f classification rate. \n',correct_all);
 
 %per class
 results_per_group = diag(conf_matrix);
-title('Confusion Matrix')
-xlabel('Predicted class')
-ylabel('True class')
 
 %%Same as recall as every group is equally big
 figure()
