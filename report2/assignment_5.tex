@@ -1,6 +1,6 @@
 \section{Assignment 5: Scene Recognition with Bag of Visual Words}
 
-The goal of this section is to map any test image to 8 pre-defined scenes described by a training set of images. For this purpose, we try to create a vocabulary of visual words. The goal of a visual word is to be the most expressive descriptor for a type of interest point. As the first step, we use \texttt{vl\_dsift} to get around 100 descriptors from each image on the training collection. We perform k\-means clustering on the list of all resulting descriptors to get our visual words. Each visual word therefore is the centroid of a cluster of 128 numbers long SIFT descriptors.
+The goal of this section is to map any test image to 8 pre-defined scenes described by a training set of images. For this purpose, we try to create a vocabulary of visual words. The goal of a visual word is to be the most expressive descriptor for a type of interest point. As the first step, we use \texttt{vl\_dsift} to get around 100 descriptors from each image on the training collection. We perform k-means clustering on the list of all resulting descriptors to get our visual words. Each visual word therefore is the centroid of a cluster of 128 numbers long SIFT descriptors.
 
 
 In our tests we utilized both 50 and 75 clusters/visual words.
@@ -59,3 +59,5 @@ Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision 
 \end{figure}
 
 As illustrated by the diagrams, the success rates of the classes mountain, forest and street is quite high. The classes bedroom, kitchen and living room have a high rate of confusion with each other. Especially the living room's bad detection rate is mostly due to the other 2 categories. There is a certain confusion between mountain and forest, however that can be seen as expected.
+
+// self test images
