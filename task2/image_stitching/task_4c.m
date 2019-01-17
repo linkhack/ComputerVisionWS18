@@ -10,6 +10,7 @@ imageinfo = {'res/','campus',    '.jpg',1,5};
 %imageinfo = {'../../../testimg/lores/','seriesB_','.jpg',1,7}; % 7 images
 %imageinfo = {'../../../testimg/lores/','seriesC_','.jpg',1,7}; % 13 images
 %imageinfo = {'../../../testimg/midres/','seriesC_','.jpg',1,7}; % 13 images
+%imageinfo = {'res/','island','.jpg',1,11};
 
 saveresults = false; % save output files? -> task_4c_unblended.png, task4c_feathered.png
 dodebug = true; % print debug output?
