@@ -26,4 +26,4 @@ fprintf('%.3f classification rate. \n',correct_all)
 % Euclidean / 50 words / step 1 = 0.57
 % Euclidean / 50 words / step 3 = 0.55
 % Euclidean / 75 words / step 2 = 0.59
-% Euclidean / 75 words / step 2 / NN = 5 = 0.598
+% Euclidean / 75 words / step 2 / NN = 0.59
