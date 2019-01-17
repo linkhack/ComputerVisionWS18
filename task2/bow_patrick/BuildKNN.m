@@ -22,6 +22,6 @@ function [training,group] = BuildKNN(folder,vocabulary)
             group = [group; i-2];
         end
     end
-    dips('Finished extracting word frequencies for training set')
+    disp('Finished extracting word frequencies for training set')
 end
 
