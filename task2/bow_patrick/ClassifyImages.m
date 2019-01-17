@@ -4,7 +4,7 @@ function [conf_matrix, predictions] = ClassifyImages(folder,vocabulary, training
     folders = dir(folder);
     vocabulary_size = size(vocabulary,2); %get number of worlds
     conf_matrix = zeros(max(group(:)));
-    knn_model = fitcknn(training,group,'NumNeighbors',5);
+    knn_model = fitcknn(training,group,'NumNeighbors',21,'Distance','cityblock');
     predictions = [];
     %% Extract histogram for training set
     for i = 3:length(folders)
@@ -17,12 +17,13 @@ function [conf_matrix, predictions] = ClassifyImages(folder,vocabulary, training
             [~, features] = vl_dsift(img,'step',2,'fast');
             word_ids = knnsearch(vocabulary',double(features'));
             word_histogram = histcounts(word_ids,vocabulary_size);
-            word_histogram = word_histogram/norm(word_histogram);
+            word_histogram = word_histogram/sum(word_histogram);
             % knn_result = knnclassify(word_histogram, training, group, 3);
             knn_result = predict(knn_model, word_histogram);
             conf_matrix(i-2,knn_result) = conf_matrix(i-2,knn_result)+1;
             predictions = [predictions, knn_result];
         end
     end
+    disp("Classification finished")
 end
 

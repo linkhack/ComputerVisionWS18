@@ -17,10 +17,11 @@ function [training,group] = BuildKNN(folder,vocabulary)
             [~, features] = vl_dsift(img,'step',2,'fast');
             word_ids = knnsearch(vocabulary',double(features'));
             word_histogram = histcounts(word_ids,vocabulary_size);
-            word_histogram = word_histogram/norm(word_histogram);
+            word_histogram = word_histogram/sum(word_histogram);
             training = [training; word_histogram];
             group = [group; i-2];
         end
     end
+    dips('Finished extracting word frequencies for training set')
 end
 

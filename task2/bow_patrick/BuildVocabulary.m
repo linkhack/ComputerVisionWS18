@@ -18,7 +18,7 @@ function vocabulary = BuildVocabulary(folder,num_clusters)
             sift_features = [sift_features, d];
         end
     end
-
+    disp('Finished building Vocabulary');
     %% Calculate Vocabulary by k-means
     vocabulary = vl_kmeans(double(sift_features), num_clusters);
 

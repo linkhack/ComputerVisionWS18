@@ -12,12 +12,38 @@ disp('Classify test Images')
 
 %% Result evaluation
 % Plotting Confusion matrix
+
 h = heatmap(conf_matrix);
+title('Confusion Matrix')
+xlabel('Predicted class')
+ylabel('True class')
 % Calculate error rates
 %total
 correct_all = trace(conf_matrix)/sum(conf_matrix(:));
-fprintf('%.3f classification rate. \n',correct_all)
+fprintf('%.3f classification rate. \n',correct_all);
+
 %per class
+results_per_group = diag(conf_matrix);
+title('Confusion Matrix')
+xlabel('Predicted class')
+ylabel('True class')
+
+%%Same as recall as every group is equally big
+figure()
+bar(results_per_group);
+title('Correctly per group')
+[worst_result, worst_group] = min(results_per_group);
+fprintf('Worst result was group %i with %i correctly classified',worst_group, worst_result);
+%recall, correctly / (nr in group)
+recall = results_per_group./sum(conf_matrix,2);
+figure()
+bar(recall)
+title('Recall')
+%precision correctly / (classified as group)
+precision = results_per_group./sum(conf_matrix,1)';
+figure();
+bar(precision)
+title('Precision')
 
 
 
@@ -27,3 +53,7 @@ fprintf('%.3f classification rate. \n',correct_all)
 % Euclidean / 50 words / step 3 = 0.55
 % Euclidean / 75 words / step 2 = 0.59
 % Euclidean / 75 words / step 2 / NN = 5 = 0.598
+% Cityblock / 75 words / step 2 / NN = 21 = 0.651
+% Euclidean / 75 words / step 2 / NN = 21 = 0.601
+% Cityblock / 100 words / step 2 / NN = 21 = 0.598
+% Euclidean / 100 words / step 2 / NN = 21 = 0.598
