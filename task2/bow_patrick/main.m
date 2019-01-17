@@ -1,6 +1,7 @@
+clear all; close all;
 %% Vocab building
 disp('Building Vocabulary')
-voc = BuildVocabulary('res/train',100);
+voc = BuildVocabulary('res/train',75);
 
 %% KNN building
 disp('Building KNN')

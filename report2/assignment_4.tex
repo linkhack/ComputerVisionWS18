@@ -34,7 +34,7 @@ In order to do that, first corresponding points in the overlap region between im
 
 \subsection{SIFT Interest Point Detection}
 
-In the first step we used the function \texttt{vl\_sift} to run the Scale Invariant Feature Transform (SIFT) \cite{Lowe04} algorithm for key point detection. As we did not need the key descriptors at this stage, we only acquired the position of each key point, along with its scale and orientation. SIFT uses Difference of Gaussians (DoG) to approximate the Logarithm of Gaussians (LoG): to examine different scales, the SIFT algorithm creates a minimum of five different Gaussian images per octave; the difference of these images (DoGs) are then used for maxima detection, similar to the blob detection algorithm from the previous assignment. 
+In the first step we used the function \texttt{vl\_sift} to run the Scale Invariant Feature Transform (SIFT) \cite{Lowe04} algorithm for key point detection. As we did not need the key descriptors at this stage, we only acquired the position of each key point, along with its scale and orientation. SIFT uses Difference of Gaussians (DoG) to approximate the Laplacian of Gaussians (LoG): to examine different scales, the SIFT algorithm creates a minimum of five different Gaussian images per octave; the difference of these images (DoGs) are then used for maxima detection, similar to the blob detection algorithm from the previous assignment. 
 
 To find the orientation of the key points, depending on the scale, a region around the key point center is chosen. The gradient magnitudes and orientations are calculated for each pixel in this region, and the result is placed in a histogram consisting of 36 bins (10$^\circ$ per bin). The largest bin of the histogram is the orientation of the key point; other bins very close to the maximum are converted into new key points (same position and scale, but with a different orientation). The key point orientation is important, because further calculations (descriptors) will be relative to this orientation, which ensures orientation invariance for matching key points.
 
@@ -72,7 +72,7 @@ Each of the 128 resulting numbers is normalized and reduced by the key point's o
 
 To eliminate potential false positive matches, a RANdom SAmple Consensus (RANSAC) \cite{Fischler81} scheme is applied: Basically, a homography is estimated by using 4 random sample matches out of all matches found by \texttt{vl\_ubcmatch}, which is then applied to all other key points via \texttt{transformPointsforward}. The number of inliers, i.e.,  those matches having their Euclidean distance smaller than a certain threshold $T$, is determined and remembered.
 %The RANSAC algorithm is applied N times and the homography with the largest number of inliers is returned as the correct estimation.
-This procedure is repeated $N$ times, and finally only the inliers of the best homography found (i.e., the one yielding the highest number of inliers) are used to estimate the final homography estimation.
+This procedure is repeated $N$ times, and finally only the inliers of the best homography found (i.e., the one yielding the highest number of inliers) are used to estimate the final homography.
 Figure \ref{fig:a4:matching} shows the remaining (inlier) matches after running RANSAC in the middle row, and the false positive matches eliminated in the bottom row.
 
 \setlength \mywidth {0.47\textwidth}
