@@ -5,10 +5,10 @@ clear all; close all;
 %imageinfo = {'res/','campus',    '.jpg',1,5};
 %imageinfo = {'res/','officeview','.jpg',1,5};
 %imageinfo = {'../../../testimg/lores/','zimmer_','.jpg',5,7};
-imageinfo = {'../../../testimg/lores/','wiese_','.jpg',1,7};
-
-saveresults = false; % save output files? -> task_4c_unblended.png, task4c_feathered.png
-dodebug = true; % print debug output?
+%imageinfo = {'../../../testimg/lores/','wiese_','.jpg',1,7};
+imageinfo = {'res/','island','.jpg',1,11};
+saveresults = true; % save output files? -> task_4c_unblended.png, task4c_feathered.png
+dodebug = false; % print debug output?
 
 % -----------------------------------
 directory    = imageinfo{1};

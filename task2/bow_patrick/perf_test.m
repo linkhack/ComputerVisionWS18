@@ -21,6 +21,6 @@ toc
 tic
 noalloc = [];
 for i=1:2600
-    noalloc = [noalloc,1:128];
+    noalloc = [noalloc;1:128];
 end
 toc

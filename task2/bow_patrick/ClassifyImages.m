@@ -4,7 +4,7 @@ function [conf_matrix, predictions] = ClassifyImages(folder,vocabulary, training
     folders = dir(folder);
     vocabulary_size = size(vocabulary,2); %get number of worlds
     conf_matrix = zeros(max(group(:)));
-    knn_model = fitcknn(training,group,'NumNeighbors',3);
+    knn_model = fitcknn(training,group,'NumNeighbors',5);
     predictions = [];
     %% Extract histogram for training set
     for i = 3:length(folders)
