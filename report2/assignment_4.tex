@@ -38,7 +38,7 @@ In the first step we used the function \texttt{vl\_sift} to run the Scale Invari
 
 To find the orientation of the key points, depending on the scale, a region around the key point center is chosen. The gradient magnitudes and orientations are calculated for each pixel in this region, and the result is placed in a histogram consisting of 36 bins (10$^\circ$ per bin). The largest bin of the histogram is the orientation of the key point; other bins very close to the maximum are converted into new key points (same position and scale, but with a different orientation). The key point orientation is important, because further calculations (descriptors) will be relative to this orientation, which ensures orientation invariance for matching key points.
 
-The function \texttt{vl\_plotframe} illustrates the results. A circle's radius correspond to the scale of the associated key point and the line is its orientation as visualized in Figure \ref{fig:a4:vlplotframe}.
+The function \texttt{vl\_plotframe} illustrates the results. A circle's radius corresponds to the scale of the associated key point and the line is its orientation as visualized in Figure \ref{fig:a4:vlplotframe}.
 
 \begin{figure}[h]
 	\centering
