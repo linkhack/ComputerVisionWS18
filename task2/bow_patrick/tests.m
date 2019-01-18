@@ -1,7 +1,7 @@
 %% Vocab building
 disp('Building Vocabulary')
 tic
-voc = BuildVocabulary('res/train',50);
+voc = BuildVocabulary('res/train',75);
 toc
 %% KNN building
 tic

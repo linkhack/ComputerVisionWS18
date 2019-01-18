@@ -1,4 +1,6 @@
-clear all; close all;
+clear all; 
+close all;
+classes = ['bedroom', 'forest', 'kitchen', 'livingroom','mountain','office','store','street'];
 %% Vocab building
 disp('Building Vocabulary')
 voc = BuildVocabulary('res/train',75);
@@ -31,7 +33,7 @@ figure()
 bar(results_per_group);
 title('Correctly per group')
 [worst_result, worst_group] = min(results_per_group);
-fprintf('Worst result was group %i with %i correctly classified',worst_group, worst_result);
+fprintf('Worst result was group %s with %i correctly classified',classes(worst_group), worst_result);
 %recall, correctly / (nr in group)
 recall = results_per_group./sum(conf_matrix,2);
 figure()
