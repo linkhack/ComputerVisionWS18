@@ -3,7 +3,7 @@ clear all; close all;
 filename1 = 'res/officeview3.jpg'; filename2 = 'res/officeview4.jpg'; 
 %filename1 = 'res/campus2.jpg';     filename2 = 'res/campus3.jpg';
 
-do_rot_scale = false; % rotate/scale 2nd image? (subtask for report)
+do_rot_scale = true; % rotate/scale 2nd image? (subtask for report)
 
 %disable "Image is too big" warning temporarily
 warning('off', 'images:initSize:adjustingMag');

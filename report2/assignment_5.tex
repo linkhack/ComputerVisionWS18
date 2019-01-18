@@ -11,9 +11,7 @@ Once the vocabulary is complete, we need to create a map between the existing tr
 
 The next step is to test images against our model as an attempt to recognize the scene correctly. Again, we use \texttt{vl\_dsift} and create a histogram as described above. As the function \texttt{knnclassify} is removed in MATLAB2018 we used the combination of functions \texttt{fitcknn} and \texttt{predict} to guess the correct scene. The result of the prediction compared to the actual class of the image is reflected by the confusion matrix.
 
-Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision rate and the confusion matrix for different sizes of vocabulary, step parameter and number of neighbors.
-
-
+Figures \ref{fig:a5:50c3nn2s} to \ref{fig:own_classification_results} visualize the precision, recall and the confusion matrix for different sizes of vocabulary, step parameter and number of neighbors. Precision is the number of correclty classified images divided by the number of images classified to this group, it measures how often a image classified as a class has actually this class. Recall is the number of correctly classified images divided by the number of images of this class. It measures how many images of a class where correctly classified.
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
@@ -34,7 +32,6 @@ Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision 
 	\caption{Results for numClusters = 50, numNeighbors = 3 and step size of 2. Success rate is 59.9\%.}
 	\label{fig:a5:50c3nn2s}
 \end{figure}
-
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
@@ -56,9 +53,7 @@ Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision 
 	\caption{Results for numClusters = 75, numNeighbors = 3 and step size of 2. Success rate is 61.3\%.}
 	\label{fig:a5:75c3nn2s}
 \end{figure}
-
 \begin{figure}[h]
-
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\begin{subfigure}[t]{\textwidth}
@@ -78,7 +73,6 @@ Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision 
 	\caption{Results for numClusters = 75, numNeighbors = 5 and step size of 2. Success rate is 62.4\%.}
 	\label{fig:a5:75c5nn2s}
 \end{figure}
-
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
@@ -101,6 +95,45 @@ Figures \ref{fig:a5:50c3nn2s} to \ref{fig:a5:75c21nn2s} visualize the precision 
 	\label{fig:a5:75c21nn2s}
 \end{figure}
 
-As illustrated by the diagrams, the success rates of the classes mountain, forest and street is quite high. The classes bedroom, kitchen and living room have a high rate of confusion with each other. Especially the living room's bad detection rate is mostly due to the other 2 categories. There is a certain confusion between mountain and forest, however that can be seen as expected.
+As illustrated by the diagrams, the success rates of the classes mountain, forest and office is quite high. The classes bedroom, kitchen and living room have a high rate of confusion with each other. Especially the living room's bad detection rate is mostly due to the other 2 categories. There is a certain confusion between mountain and forest, however that can be seen as expected. We can also see that the recall of class bedroom is very bad, as many of these images are classified as livingroom. On the other hand the precision of the class bedroom is quite high in the last run, because almost only bedrooms get classified as bedrooms, but no other of these confusing classes. On the other hand the class livingroom has a very low precision, as most of these room classes get classified as living room. The class street lies in between these two groups of easy and hard classsification examples, when it gets confused for an other class, it's often a mandmade scene, but the precision is relatively high. 
 
-// self test images
+We also tested the bag of words classifier on own images. We used two pictures of a forest, one picture of a kitchen, one of a lliving room, 5 pictures of mountains and 3 pictures of a street. The pictures were scaled down to match the resolution of the training set. In figure \ref{fig:own_classification_results} the results are shown.
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\begin{subfigure}[t]{\textwidth}
+			\includegraphics[width=\textwidth]{figures/own_recall.png} 
+			\caption{Recall}
+		\end{subfigure}
+		\begin{subfigure}[t]{\textwidth}
+			\includegraphics[width=\textwidth]{figures/own_precision.png}
+			\caption{Precision}
+		\end{subfigure}
+
+	\end{subfigure}
+	\begin{subfigure}{0.65\textwidth}
+		\includegraphics[width=\textwidth]{figures/own_confusion.png}
+		\caption{Confusion Matrix}
+	\end{subfigure}
+
+	\caption{Results for own images. numClusters = 75, numNeighbors = 21 and step size of 2. Success rate is 58.3\%.}
+	\label{fig:own_classification_results}
+\end{figure}
+The complete overall success rate was 58.3\%. Strangely the images of the class forest, livingroom and kitchen were correctly classified. Two mountain images were classified as forests, but there is a lot of forest in the mountain pictures. The street images were classified as livingroom, kitchen and store, even if they don't resemble each other for a human. The results on the test set and our own images lead us to believe that we can expect a classification rate of about 60\% on new unseen pictures. In fiigure \ref{fig:own_images} some of our images are shown.
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{figures/own_street} 
+		\caption{Street}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{figures/own_mountain} 
+		\caption{Mountain}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\includegraphics[width=\textwidth]{figures/own_kitchen} 
+		\caption{Kitchen}
+	\end{subfigure}
+	\caption{Some of the test images}
+	\label{fig:own_images}
+\end{figure}
